@@ -47,7 +47,7 @@ export default function MenuСomponent({ active, setActive }) {
                                 key={item}
                                 onClick={() => setActive(item)}
                                 sx={{
-                                    borderRadius: 12,
+                                    borderRadius: 2,
                                     mb: 0.8,
                                     bgcolor: isActive
                                         ? "#4f46e5"
@@ -89,11 +89,6 @@ export default function MenuСomponent({ active, setActive }) {
             {/* --------- MOBILE BURGER -------- */}
             <IconButton
                 sx={{
-                    // position: "fixed",
-                    // top: 16,
-                    // left: 16,
-                    // zIndex: 10,
-                    // justify-content: flex-start;
                     justifyContent: 'flex-start',
                     pl: 2,
                     mb: 2,

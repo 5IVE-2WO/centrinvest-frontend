@@ -66,14 +66,15 @@ const categoryData = [
     { label: "Транспорт", amount: "128 руб", color: "#467b94" },
 ];
 
-const ViewSubsection = () => {
+const ViewSubsection = ({ amount = 0 }) => {
     return (
         <Stack
             spacing="15px"
             sx={{
-                pl: 2,
-                pr: 2,
-                mb: 4,
+                // pl: 2,
+                // pr: 2,
+                // mb: 4,
+                maxWidth: 530,
             }}
         >
             <Box>
@@ -124,14 +125,14 @@ const ViewSubsection = () => {
                     ))}
                 </Stack>
             </Box>
-            {transactionsData.map((transaction) => (
+            {transactionsData.filter((_, index) => index < amount).map((transaction) => (
                 <Paper
-                    elevation={1}
+                    elevation={0}
                     sx={{
                         height: "auto",
-                        borderRadius: 3,
+                        borderRadius: 2,
                         position: "relative",
-                        padding: 2.5,
+                        p: 2,
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-between",

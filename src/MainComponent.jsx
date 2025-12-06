@@ -1,13 +1,13 @@
 import { Box, Typography, Paper, Alert, Button } from "@mui/material";
+import ViewSubsection from "./ViewSubsection.jsx";
 
 export default function MainComponent() {
     return (
         <>
             <Box
                 sx={{
-                    pl: 2,
-                    pr: 2,
                     mb: 4,
+                    maxWidth: 530,
                 }}
             >
                 <Alert
@@ -33,7 +33,7 @@ export default function MainComponent() {
                             flexWrap: "wrap",
                         }}
                     >
-                        <Box>
+                        <Box sx={{ pr: 8 }}>
                             <Typography color="text.secondary">
                                 Текущий баланс
                             </Typography>
@@ -42,7 +42,7 @@ export default function MainComponent() {
                             </Typography>
                         </Box>
 
-                        <Box sx={{ mt: { xs: 2, md: 0 } }}>
+                        <Box>
                             <Typography color="text.secondary">
                                 Прогноз на 7 дней
                             </Typography>
@@ -92,7 +92,7 @@ export default function MainComponent() {
                 </Typography>
 
                 <Paper elevation={1} sx={{ p: 2, borderRadius: 3 }}>
-                    <Typography color="text.secondary">Пусто</Typography>
+                    <Typography color="text.secondary"><ViewSubsection /></Typography>
                 </Paper>
             </Box>
         </>

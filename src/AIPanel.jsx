@@ -30,15 +30,14 @@ export default function AIPanel() {
             <Button
                 fullWidth
                 variant="contained"
-                sx={{ mt: "30px", bgcolor: "#4f46e5", borderRadius: 12 }}
+                sx={{ mt: 2, bgcolor: "#4f46e5", borderRadius: 2 }}
             >
                 Проверить
             </Button>
 
             <Button
                 fullWidth
-                variant="outlined"
-                sx={{ mt: "20px", borderRadius: 12 }}
+                sx={{ mt: 1, borderRadius: 2 }}
             >
                 Отложить
             </Button>

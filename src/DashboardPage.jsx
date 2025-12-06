@@ -23,8 +23,14 @@ export default function DashboardPage() {
             <MenuСomponent active={active} setActive={setActive} />
 
             {/* Контент главной страницы */}
-            {active == "Главная" ? <MainComponent /> : <></>}
-            {active == "Транзакции" ? <ViewSubsection /> : <></>}
+            <Box sx={{
+                pl: 2,
+                pr: 2,
+                mb: 4,
+            }}>
+                {active == "Главная" ? <MainComponent /> : <></>}
+                {active == "Транзакции" ? <ViewSubsection amount={3} /> : <></>}
+            </Box>
 
             {/* Если мобилка AI внизу */}
             <Box
