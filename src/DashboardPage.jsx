@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
-import MenuСomponent from "./MenuСomponent.jsx"
-import MainComponent from "./MainComponent.jsx"
-import AIPanel from "./AIPanel.jsx"
+import MenuСomponent from "./MenuСomponent.jsx";
+import MainComponent from "./MainComponent.jsx";
+import AIPanel from "./AIPanel.jsx";
+import ViewSubsection from "./ViewSubsection.jsx";
 
 export default function DashboardPage() {
     const [active, setActive] = useState("Главная");
@@ -13,23 +14,22 @@ export default function DashboardPage() {
                 display: "flex",
                 minHeight: "100vh",
                 bgcolor: "#f6f7fb",
+                flexDirection: { xs: "column", sm: "column", md: "row" },
                 // bgcolor: "#ea0000ff",
                 p: { xs: 1, md: 2 },
             }}
         >
-            <MenuСomponent
-                active={active}
-                setActive={setActive}
-            />
+            <MenuСomponent active={active} setActive={setActive} />
 
             {/* Контент главной страницы */}
-            {active == "Главная" ? (<MainComponent/>) : (<></>)}
+            {active == "Главная" ? <MainComponent /> : <></>}
+            {active == "Транзакции" ? <ViewSubsection /> : <></>}
 
             {/* Если мобилка AI внизу */}
-            <Box 
-                sx={{ 
-                    display: { xs: "block", lg: "none" }, 
-                    mt: 3
+            <Box
+                sx={{
+                    display: { xs: "block", lg: "none" },
+                    mt: 3,
                 }}
             >
                 <AIPanel />
