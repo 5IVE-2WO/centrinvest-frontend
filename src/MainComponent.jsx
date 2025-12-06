@@ -5,10 +5,9 @@ export default function MainComponent() {
         <>
             <Box
                 sx={{
-                    flex: 1,
-                    pl: { xs: 1, md: 2 },
-                    pr: { xs: 1, md: 2 },
-                    ml: { xs: 0, md: 2 },
+                    pl: 2,
+                    pr: 2,
+                    mb: 4,
                 }}
             >
                 <Alert

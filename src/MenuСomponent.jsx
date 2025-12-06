@@ -17,8 +17,18 @@ export default function MenuСomponent({ active, setActive }) {
     const menu = ["Главная", "AI - ассистент", "Подписки", "Транзакции"];
 
     const MenuContent = (
-        <Box sx={{ width: 250 }}>
-            <Paper sx={{ p: 2, borderRadius: 3 }} elevation={1}>
+        <Box 
+            sx={{
+                width: { xs: 500, sm: 400, md: 250, lg: 250, xl: 250 },
+            }}
+        >
+            <Paper
+                sx={{ 
+                    p: 2, 
+                    borderRadius: 3,
+                }} 
+                elevation={1}
+            >
                 <Typography variant="h5" fontWeight={700}>
                     Финансы
                 </Typography>
@@ -69,7 +79,8 @@ export default function MenuСomponent({ active, setActive }) {
             {/* --------- DESKTOP MENU -------- */}
             <Box
                 sx={{
-                    display: { xs: "none", md: "block" },
+                    display: { xs: "none", sm: "none", md: "block", lg: "block", xl: "block" },
+                    width: 250,
                 }}
             >
                 {MenuContent}
@@ -78,11 +89,15 @@ export default function MenuСomponent({ active, setActive }) {
             {/* --------- MOBILE BURGER -------- */}
             <IconButton
                 sx={{
-                    position: "fixed",
-                    top: 16,
-                    left: 16,
-                    zIndex: 10,
-                    display: { xs: "flex", md: "none" },
+                    // position: "fixed",
+                    // top: 16,
+                    // left: 16,
+                    // zIndex: 10,
+                    // justify-content: flex-start;
+                    justifyContent: 'flex-start',
+                    pl: 2,
+                    mb: 2,
+                    display: { xs: "flex", sm: "flex", md: "none", lg: "none", xl: "none" },
                 }}
                 onClick={() => setOpen(true)}
             >

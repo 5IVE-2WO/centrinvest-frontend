@@ -71,18 +71,12 @@ const ViewSubsection = () => {
         <Stack
             spacing="15px"
             sx={{
-                width: "100%",
-                maxWidth: "640px",
-                marginLeft: "20px",
-                marginRight: "20px",
+                pl: 2,
+                pr: 2,
+                mb: 4,
             }}
         >
-            <Box
-                sx={{
-                    width: "100%",
-                    position: "relative",
-                }}
-            >
+            <Box>
                 <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
                     {categoryData.slice(0, 3).map((category, index) => (
                         <Box
@@ -132,9 +126,8 @@ const ViewSubsection = () => {
             </Box>
             {transactionsData.map((transaction) => (
                 <Paper
-                    elevation={3}
+                    elevation={1}
                     sx={{
-                        maxWidth: 640,
                         height: "auto",
                         borderRadius: 3,
                         position: "relative",

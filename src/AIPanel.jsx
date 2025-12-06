@@ -2,7 +2,13 @@ import { Typography, Paper, Button } from "@mui/material";
 
 export default function AIPanel() {
     return (
-        <Paper sx={{ p: 2, borderRadius: 3 }} elevation={1}>
+        <Paper 
+            sx={{ 
+                p: 2, 
+                borderRadius: 3 
+            }}
+            elevation={1}
+        >
             <Typography variant="h6" fontWeight={700} marginBottom={"30px"}>
                 AI - ассистент
             </Typography>

@@ -13,10 +13,11 @@ export default function DashboardPage() {
             sx={{
                 display: "flex",
                 minHeight: "100vh",
+                maxWidth: "99vw",
                 bgcolor: "#f6f7fb",
                 flexDirection: { xs: "column", sm: "column", md: "row" },
                 // bgcolor: "#ea0000ff",
-                p: { xs: 1, md: 2 },
+                p: { xs: 2, md: 2, lg: 2},
             }}
         >
             <MenuСomponent active={active} setActive={setActive} />
@@ -28,8 +29,9 @@ export default function DashboardPage() {
             {/* Если мобилка AI внизу */}
             <Box
                 sx={{
-                    display: { xs: "block", lg: "none" },
-                    mt: 3,
+                    maxWidth: 250,
+                    display: { xs: "block", sm: "block", md: "none", lg: "none", xl: "none" },
+                    pl: 2,
                 }}
             >
                 <AIPanel />
@@ -38,9 +40,8 @@ export default function DashboardPage() {
             {/* Если десктоп, то справа */}
             <Box
                 sx={{
-                    width: 260,
-                    ml: 2,
-                    display: { xs: "none", lg: "block" },
+                    maxWidth: 250,
+                    display: { xs: "none", sm: "none", md: "block", lg: "block", xl: "block" },
                 }}
             >
                 <AIPanel />
