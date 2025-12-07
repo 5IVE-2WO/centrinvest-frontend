@@ -1,7 +1,40 @@
 import { Box, Typography, Paper, Alert, Button } from "@mui/material";
 import ViewSubsection from "./ViewSubsection.jsx";
+import SimpleLineChart from "./SimpleLineChart.jsx";
+import ListTransaction from "./ListTransaction.jsx";
 
-export default function MainComponent() {
+const balance_history = [
+    {
+        date: "2025-11-30",
+        balance: 13900,
+    },
+    {
+        date: "2025-12-01",
+        balance: 13900,
+    },
+    {
+        date: "2025-12-02",
+        balance: 13900,
+    },
+    {
+        date: "2025-12-03",
+        balance: 15700,
+    },
+    {
+        date: "2025-12-04",
+        balance: 15700,
+    },
+    {
+        date: "2025-12-05",
+        balance: 15500,
+    },
+    {
+        date: "2025-12-06",
+        balance: 10000,
+    },
+];
+
+export default function MainComponent({ allTransactions, setAllTransactions }) {
     return (
         <>
             <Box
@@ -41,7 +74,6 @@ export default function MainComponent() {
                                 € 3140.02
                             </Typography>
                         </Box>
-
                         <Box>
                             <Typography color="text.secondary">
                                 Прогноз на 7 дней
@@ -50,6 +82,7 @@ export default function MainComponent() {
                                 € 3020.02
                             </Typography>
                         </Box>
+                        <SimpleLineChart data={balance_history} />
                     </Box>
 
                     {/* TODO: найти готовый компонент графика если он вообще нужен */}
@@ -75,7 +108,16 @@ export default function MainComponent() {
                         <Typography variant="subtitle1" fontWeight={600} mt={0}>
                             1 подозрительная транзакция
                         </Typography>
-                        <Button> Подробнее </Button>
+                        <Button
+                            sx={{
+                                textDecoration: "underline",
+                                p: 0,
+                                color: "#00000099",
+                                fontSize: "12px",
+                            }}
+                        >
+                            Подробнее
+                        </Button>
                     </Paper>
 
                     <Paper elevation={1} sx={{ p: 2, borderRadius: 3 }}>
@@ -83,6 +125,16 @@ export default function MainComponent() {
                         <Typography variant="subtitle1" fontWeight={600} mt={0}>
                             Рекомендация: отложить 15%
                         </Typography>
+                        <Button
+                            sx={{
+                                textDecoration: "underline",
+                                p: 0,
+                                color: "#00000099",
+                                fontSize: "12px",
+                            }}
+                        >
+                            Подробнее
+                        </Button>
                     </Paper>
                 </Box>
 
@@ -92,7 +144,11 @@ export default function MainComponent() {
                 </Typography>
 
                 <Paper elevation={1} sx={{ p: 2, borderRadius: 3 }}>
-                    <Typography color="text.secondary"><ViewSubsection /></Typography>
+                    <ListTransaction
+                        amount={5}
+                        allTransactions={allTransactions.transactions}
+                        setAllTransactions={setAllTransactions}
+                    />
                 </Paper>
             </Box>
         </>
