@@ -3,7 +3,7 @@ import api from "../axios";
 export const getExpensesLast3Month = async () => {
     try {
         const response = await api.get(
-            "/analytics/expenses-last-3-months?email=demo@demo.com"
+            "/analytics/expenses-last-3-months?email=demo@finance.app"
         );
         return response.data;
     } catch (err) {
@@ -32,7 +32,7 @@ export const getBalance = async () => {
 export const getBalanceHistory = async () => {
     try {
         const response = await api.get(
-            "/analytics/balance-history?email=demo@demo.com"
+            "/analytics/balance-history?email=demo@finance.app"
         );
         return response.data;
     } catch (err) {

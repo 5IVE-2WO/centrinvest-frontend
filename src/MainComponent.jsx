@@ -8,18 +8,26 @@ import { useEffect, useState } from "react";
 export default function MainComponent({ allTransactions, setAllTransactions }) {
     const [balance, setBalance] = useState(0);
     const [forecastBalance, setForecastBalance] = useState(0);
+    const [recommendations, setRecommendations] = useState(0);
     const [balanceHistory, setBalanceHistory] = useState(0);
 
     useEffect(() => {
         getBalance().then((balance) => setBalance(balance.balance));
-        getForecastBalance().then((forecastBalance) =>
-            setForecastBalance(forecastBalance.summary.forecast_end_of_month)
-        );
+        getForecastBalance().then((forecastBalance) => {
+            setForecastBalance(forecastBalance.summary.forecast_end_of_month);
+            setRecommendations(forecastBalance.recommendations);
+        });
         getBalanceHistory().then((balanceHistory) =>
             setBalanceHistory(balanceHistory.balance_history)
         );
     }, []);
-    console.log(balanceHistory);
+    if (recommendations) {
+        console.log(
+            recommendations.filter((recom) => {
+                if (recom[0] === "0") return recom;
+            })
+        );
+    }
     return (
         <>
             <Box
@@ -28,12 +36,28 @@ export default function MainComponent({ allTransactions, setAllTransactions }) {
                     maxWidth: 530,
                 }}
             >
-                <Alert
-                    severity="error"
-                    sx={{ border: "1px solid #E22C2C", borderRadius: 3 }}
-                >
-                    <strong>Внимание:</strong> возможно мошенническое списание.
-                </Alert>
+                {recommendations !== 0 &&
+                recommendations.filter((recom) => {
+                    if (recom[0] === "0") return recom;
+                }) ? (
+                    <Alert
+                        severity="error"
+                        sx={{ border: "1px solid #E22C2C", borderRadius: 3 }}
+                    >
+                        <strong>Внимание:</strong>
+                        {recommendations !== 0 &&
+                            recommendations.filter((recom) => {
+                                if (recom[0] === "0") return recom;
+                            })}
+                    </Alert>
+                ) : (
+                    <Alert
+                        severity="info"
+                        sx={{ border: "1px solid #7EACE7", borderRadius: 3 }}
+                    >
+                        С вашими финансами всё хорошо!
+                    </Alert>
+                )}
 
                 {/* Баланс */}
                 <Paper
@@ -91,11 +115,11 @@ export default function MainComponent({ allTransactions, setAllTransactions }) {
                     }}
                 >
                     <Paper elevation={1} sx={{ p: 2, borderRadius: 3 }}>
-                        <Typography color="text.secondary">
-                            Потенц. мошен.
-                        </Typography>
                         <Typography variant="subtitle1" fontWeight={600} mt={0}>
-                            1 подозрительная транзакция
+                            {recommendations !== 0 &&
+                                recommendations.filter((recom) => {
+                                    if (recom[0] !== "0") return recom;
+                                })[0]}
                         </Typography>
                         <Button
                             sx={{
@@ -110,9 +134,11 @@ export default function MainComponent({ allTransactions, setAllTransactions }) {
                     </Paper>
 
                     <Paper elevation={1} sx={{ p: 2, borderRadius: 3 }}>
-                        <Typography color="text.secondary">Экономия</Typography>
                         <Typography variant="subtitle1" fontWeight={600} mt={0}>
-                            Рекомендация: отложить 15%
+                            {recommendations !== 0 &&
+                                recommendations.filter((recom) => {
+                                    if (recom[0] !== "0") return recom;
+                                })[1]}
                         </Typography>
                         <Button
                             sx={{
