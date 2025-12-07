@@ -6,7 +6,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJkZW1vQGZpbmFuY2UuYXBwIiwiZXhwIjoxNzY1MDYzNDg1fQ._cW_Vgwzk93-pFVcMzGRCm-aES7btxZecG_5SySldyo`;
+        config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJkZW1vQGRlbW8uY29tIn0.DNA9QZq8b7jpbChjxG8SQ_bUMN-Jp6s_MvH2SFkpJiA`;
 
         return config;
     },

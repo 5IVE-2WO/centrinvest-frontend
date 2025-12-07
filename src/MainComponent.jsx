@@ -2,39 +2,24 @@ import { Box, Typography, Paper, Alert, Button } from "@mui/material";
 import ViewSubsection from "./ViewSubsection.jsx";
 import SimpleLineChart from "./SimpleLineChart.jsx";
 import ListTransaction from "./ListTransaction.jsx";
-
-const balance_history = [
-    {
-        date: "2025-11-30",
-        balance: 13900,
-    },
-    {
-        date: "2025-12-01",
-        balance: 13900,
-    },
-    {
-        date: "2025-12-02",
-        balance: 13900,
-    },
-    {
-        date: "2025-12-03",
-        balance: 15700,
-    },
-    {
-        date: "2025-12-04",
-        balance: 15700,
-    },
-    {
-        date: "2025-12-05",
-        balance: 15500,
-    },
-    {
-        date: "2025-12-06",
-        balance: 10000,
-    },
-];
+import { getBalance, getForecastBalance, getBalanceHistory } from "./api.js";
+import { useEffect, useState } from "react";
 
 export default function MainComponent({ allTransactions, setAllTransactions }) {
+    const [balance, setBalance] = useState(0);
+    const [forecastBalance, setForecastBalance] = useState(0);
+    const [balanceHistory, setBalanceHistory] = useState(0);
+
+    useEffect(() => {
+        getBalance().then((balance) => setBalance(balance.balance));
+        getForecastBalance().then((forecastBalance) =>
+            setForecastBalance(forecastBalance.summary.forecast_end_of_month)
+        );
+        getBalanceHistory().then((balanceHistory) =>
+            setBalanceHistory(balanceHistory.balance_history)
+        );
+    }, []);
+    console.log(balanceHistory);
     return (
         <>
             <Box
@@ -71,18 +56,22 @@ export default function MainComponent({ allTransactions, setAllTransactions }) {
                                 Текущий баланс
                             </Typography>
                             <Typography variant="h4" fontWeight={700}>
-                                € 3140.02
+                                € {balance}
                             </Typography>
                         </Box>
                         <Box>
                             <Typography color="text.secondary">
-                                Прогноз на 7 дней
+                                Прогноз на 30 дней
                             </Typography>
                             <Typography variant="h6" fontWeight={600}>
-                                € 3020.02
+                                € {forecastBalance}
                             </Typography>
                         </Box>
-                        <SimpleLineChart data={balance_history} />
+                        {balanceHistory ? (
+                            <SimpleLineChart data={balanceHistory} />
+                        ) : (
+                            <></>
+                        )}
                     </Box>
 
                     {/* TODO: найти готовый компонент графика если он вообще нужен */}
@@ -146,7 +135,7 @@ export default function MainComponent({ allTransactions, setAllTransactions }) {
                 <Paper elevation={1} sx={{ p: 2, borderRadius: 3 }}>
                     <ListTransaction
                         amount={5}
-                        allTransactions={allTransactions.transactions}
+                        allTransactions={allTransactions}
                         setAllTransactions={setAllTransactions}
                     />
                 </Paper>

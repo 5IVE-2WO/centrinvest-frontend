@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CloseIcon from "@mui/icons-material/Close";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PieChartt from "./PieChart";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -21,6 +21,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import api from "../axios";
 import ListTransaction from "./ListTransaction";
+import { getExpensesLast3Month } from "./api";
 
 const COLORS = [
     "#6366F1",
@@ -39,9 +40,13 @@ const ViewSubsection = ({
 }) => {
     const [isActiveAdd, setIsActiveAdd] = useState(false);
     const [amountAdd, setAmountAdd] = useState("");
-    const [dateAdd, setDateAdd] = useState(dayjs("2022-04-17"));
+    const [dateAdd, setDateAdd] = useState(dayjs("2025-12-01"));
     const [typeNote, setTypeNote] = useState(false);
+    const [expensiveCategory, setExpensiveCategory] = useState([]);
 
+    useEffect(() => {
+        getExpensesLast3Month().then((data) => setExpensiveCategory(data));
+    }, []);
     const noIsActiveAdd = () => {
         setIsActiveAdd(!isActiveAdd);
     };
@@ -59,18 +64,6 @@ const ViewSubsection = ({
     };
     const sendTransaction = async () => {
         try {
-            console.log(
-                JSON.stringify({
-                    date: dateAdd.$d
-                        .toLocaleDateString()
-                        .split(".")
-                        .reverse()
-                        .join("-"),
-
-                    isIncome: typeNote,
-                    value: parseInt(amountAdd),
-                })
-            );
             const res = await api.post(
                 "/transactions",
                 {
@@ -85,14 +78,12 @@ const ViewSubsection = ({
                 },
                 { headers: { "Content-Type": "application/json" } }
             );
-            setAllTransactions([...allTransactions, res.data]);
+            setAllTransactions([res.data, ...allTransactions]);
+            getExpensesLast3Month().then((data) => setExpensiveCategory(data));
         } catch (err) {
             console.log(err);
-        } finally {
-            console.log("All good");
         }
     };
-
     return (
         <Stack
             spacing="15px"
@@ -105,7 +96,7 @@ const ViewSubsection = ({
         >
             {amount === 0 && (
                 <Box>
-                    <PieChartt data={categoryMonth["2025-12"]} />
+                    <PieChartt data={expensiveCategory["2025-12"]} />
                     <Stack
                         direction="row"
                         spacing={2}
@@ -314,7 +305,7 @@ const ViewSubsection = ({
             {allTransactions ? (
                 <ListTransaction
                     amount={0}
-                    allTransactions={allTransactions.transactions}
+                    allTransactions={allTransactions}
                     setAllTransactions={setAllTransactions}
                 />
             ) : (

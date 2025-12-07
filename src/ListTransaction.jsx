@@ -37,7 +37,6 @@ const ListTransaction = ({ amount, allTransactions, setAllTransactions }) => {
     const [editingId, setEditingId] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState({});
     const [loading, setLoading] = useState({});
-
     const categories = [
         "Прочие расходы",
         "Продукты",
@@ -76,22 +75,18 @@ const ListTransaction = ({ amount, allTransactions, setAllTransactions }) => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        // Добавьте, если нужно: 'Authorization': `Bearer ${token}`
                     },
                 }
             );
-
-            setAllTransactions((prev) => {
-                return {
-                    ...prev,
-                    transactions: prev.transactions.map((transaction) =>
-                        transaction.id === id
-                            ? { ...transaction, category: newCategory }
-                            : transaction
-                    ),
-                };
-            });
-            setEditingId(null); // Сбрасываем состояние редактирования
+            console.log(allTransactions);
+            setAllTransactions((prev) =>
+                prev.map((transaction) =>
+                    transaction.id === id
+                        ? { ...transaction, category: newCategory }
+                        : transaction
+                )
+            );
+            setEditingId(null);
         } catch (error) {
             console.error("Ошибка при обновлении транзакции:", error);
             if (error.response) {
@@ -106,7 +101,6 @@ const ListTransaction = ({ amount, allTransactions, setAllTransactions }) => {
             } else {
                 console.error("Ошибка при настройке запроса:", error.message);
             }
-            // Уведомление об ошибке можно заменить на Snackbar или другой UI-компонент
             console.warn(
                 "Не удалось обновить транзакцию. Проверьте консоль для подробностей."
             );

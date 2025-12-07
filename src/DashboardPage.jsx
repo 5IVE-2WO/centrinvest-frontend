@@ -5,21 +5,12 @@ import MainComponent from "./MainComponent.jsx";
 import AIPanel from "./AIPanel.jsx";
 import ViewSubsection from "./ViewSubsection.jsx";
 import api from "../axios";
+import { getExpensesLast3Month } from "./api.js";
 
 export default function DashboardPage() {
     const [active, setActive] = useState("Главная");
     const [categoryMonth, setCategoryMonth] = useState({});
     const [allTransactions, setAllTransactions] = useState();
-    const getExpensesLast3Month = async () => {
-        try {
-            const response = await api.get(
-                "/analytics/expenses-last-3-months?email=demo@finance.app"
-            );
-            return response.data;
-        } catch (err) {
-            console.error("Ошибка запроса:", err);
-        }
-    };
 
     const getAllTransactions = async () => {
         try {
@@ -32,7 +23,9 @@ export default function DashboardPage() {
 
     useEffect(() => {
         getExpensesLast3Month().then((res) => setCategoryMonth(res));
-        getAllTransactions().then((res) => setAllTransactions(res));
+        getAllTransactions().then((res) =>
+            setAllTransactions(res.transactions)
+        );
     }, []);
 
     return (
